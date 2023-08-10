@@ -1,0 +1,25 @@
+package rules;
+
+import com.example.vo.SwitchDataAccumulator;
+import com.example.vo.SwitchData;
+import org.apache.commons.lang3.time.DateFormatUtils;
+
+rule "switchData_exceed_off"
+    no-loop true
+    lock-on-active true
+    salience 1
+    when
+        $accumulator:SwitchDataAccumulator($switchData:getSwitchData() && $switchData.status == false)
+    then
+        System.out.println("设备[" + $switchData.getDeviceId() + "]下线了，时间[" + DateFormatUtils.format($switchData.getTimestamp(), "yyyy-MM-dd HH:mm:ss") + "]");
+end
+
+rule "switchData_exceed_on"
+    no-loop true
+    lock-on-active true
+    salience 1
+    when
+        $accumulator:SwitchDataAccumulator($switchData:getSwitchData() && $switchData.status == true)
+    then
+        System.out.println("设备[" + $switchData.getDeviceId() + "]上线了，时间[" + DateFormatUtils.format($switchData.getTimestamp(), "yyyy-MM-dd HH:mm:ss") + "]");
+end

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kmodule
+        xmlns="http://www.drools.org/xsd/kmodule">
+
+    <!--package是逻辑上的包名，可以不是物理存在的-->
+    <kbase packages="rules" default="true">
+        <!--名称可以随便取，如果没设置default，那么在newKieSession的时候就要将此处的name设置到参数中-->
+        <ksession name="rulesKS" default="true"/>
+    </kbase>
+
+</kmodule>

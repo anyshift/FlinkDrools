@@ -1,0 +1,15 @@
+package rules;
+
+import com.example.vo.AnalogDataAccumulator;
+import com.example.vo.AnalogData;
+import org.apache.commons.lang3.time.DateFormatUtils;
+
+rule "amalogData_exceed_max"
+    no-loop true
+    lock-on-active true
+    salience 1
+    when
+        $accumulator:AnalogDataAccumulator($analogData:getAnalogData() && $analogData.getValue() > 70.0)
+    then
+        System.out.println("设备[" + $analogData.getSensorId() + "]运行温度超过70摄氏度，时间[" + DateFormatUtils.format($analogData.getTimestamp(), "yyyy-MM-dd HH:mm:ss") + "]");
+end
